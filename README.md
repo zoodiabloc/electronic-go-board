@@ -20,9 +20,9 @@ Create a .env file in the root directory containing the following variables:
 
 ## Current steps to make appending moves works
 
-1. Run `npm start` and copy the demo board ID from the terminal.
-2. On line 23 of indextest.js, modify the value of `reviewID` to match the new demo board ID.
-3. Run `node indextest.js`.
+1. Run `npm start` and copy the new demo board ID from the terminal.
+2. On line 23 of indextest.js, modify the value of `reviewID` to match the new demo board ID from step 1.
+3. Run `node indextest.js` in another terminal.
 4. Both index.js and indextest.js listen to all incoming messages and output the event name. If appending moves is successful, you should see a new entry of `review/<reviewID>/r` which is normally sent back from the socket once appending move to a review is successful. However, running step 1 through 3 won't see this behaviour, meaning the appending moves did not work yet.
 5. Open ogs and log in with your username and password.
 6. Open a new demo board and name it anything.
