@@ -20,7 +20,7 @@ async function main() {
   let jwt = config['user_jwt'];
 
   // let reviewID = await ogsapi.createDemoBoard(accessToken, 'test1', 'bplayer', 10, 'wplayer', 10, 19, 19, 'japanese', 'false');
-  let reviewID = 959848;
+  let reviewID = 959865;
 
   let socket = await ogsapi.generateOGSSocketHandler();
 
@@ -37,6 +37,9 @@ async function main() {
   emitter.emitReviewAppendMove(socket, 'ddeeffgg', reviewID, userID);
 
   emitter.emitHostinfo(socket);
+
+  let sgf = await ogsapi.downloadSGF(accessToken, reviewID, './sgf/test.sgf');
+  console.log(sgf);
 }
 
 main();

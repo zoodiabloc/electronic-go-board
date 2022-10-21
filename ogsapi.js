@@ -2,6 +2,7 @@ require('dotenv').config();
 const axios = require('axios');
 const FormData = require('form-data');
 const { io } = require("socket.io-client");
+const fs = require('fs');
 
 async function generateAccessToken(username, password, clientID, grantType) {
   let url = 'https://online-go.com/oauth2/token/';
@@ -65,9 +66,25 @@ function generateOGSSocketHandler() {
   return socket
 }
 
+async function downloadSGF(accessToken, reviewID, sgfPath) {
+  let url = `https://online-go.com/api/v1/reviews/${reviewID}/sgf/`;
+
+  let res = await axios.get(url, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`
+    }
+  });
+  let sgf = res['data'];
+  fs.writeFile(sgfPath, sgf, (err) => {
+    console.log(err);
+  });
+  return sgf
+}
+
 module.exports = {
   generateAccessToken,
   getUIConfig,
   generateOGSSocketHandler,
-  createDemoBoard
+  createDemoBoard,
+  downloadSGF
 }

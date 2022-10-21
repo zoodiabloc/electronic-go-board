@@ -36,6 +36,9 @@ async function main() {
   emitter.emitReviewAppendMove(socket, 'abcdefgh', reviewID, userID);
 
   emitter.emitHostinfo(socket);
+
+  let sgf = await ogsapi.downloadSGF(accessToken, reviewID, './sgf/test.sgf');
+  console.log(sgf);
 }
 
 main();

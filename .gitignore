@@ -1,3 +1,5 @@
+sgf/*.sgf
+
 # Logs
 logs
 *.log
