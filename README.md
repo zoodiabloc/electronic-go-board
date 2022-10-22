@@ -20,7 +20,7 @@ Create a .env file in the root directory containing the following variables:
 
 ## Project updates
 
-### Current features (2022.10.22)
+### Append new moves is now working (2022.10.22)
 
 The appending moves to a demo board has been tested and it works. Some sleep functions has been implemented to leave enough time for the server to properly authenticating users. 
 
