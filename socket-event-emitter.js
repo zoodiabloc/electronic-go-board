@@ -1,16 +1,22 @@
-function emitAuthenticate(socket, chatAuth, playerID, username, jwt) {
+// const time = require('time');
+
+async function emitAuthenticate(socket, chatAuth, playerID, username, jwt) {
   let eventName = 'authenticate';
   let data = {
     auth: chatAuth,
     player_id: playerID,
-    username: username,
-    jwt
+    jwt: jwt,
+    username: username
+
+    // username: username,
+    // jwt
   };
   socket.emit(eventName, data);
   console.log('emitting emitAuthenticate');
+  // await time.sleep(1000);
 }
 
-function emitConnectReview(socket, chatAuth, reviewID, playerID) {
+async function emitConnectReview(socket, chatAuth, reviewID, playerID) {
   let eventName = 'review/connect';
   let data = {
     auth: chatAuth,
@@ -21,29 +27,36 @@ function emitConnectReview(socket, chatAuth, reviewID, playerID) {
   console.log('emitting emitConnectReview');
 }
 
-function emitHostinfo(socket) {
+async function emitHostinfo(socket) {
   let eventName = 'hostinfo';
   socket.emit(eventName);
   console.log('emitting emitHostinfo');
 }
 
-function emitConnectChat() {
+async function emitConnectChat() {
 
 }
 
-function emitConnectNotification() {
+async function emitConnectNotification(socket, notificationAuth, playerID) {
+  let eventName = 'notification/connect';
+  let data = {
+    auth: notificationAuth,
+    // review_id: reviewID,
+    player_id: playerID
+  };
+  socket.emit(eventName, data);
+  console.log('emitting emitConnectNotification');
+}
+
+async function emitConnectIncident() {
 
 }
 
-function emitConnectIncident() {
-
-}
-
-function emitReviewAppendMove(socket, updatedMoveString, reviewID, playerID) {
+async function emitReviewAppendMove(socket, updatedMoveString, reviewID, playerID) {
   let eventName = 'review/append';
   let data = {
     f: 0,
-    t: ' ',
+    t: '',
     m: updatedMoveString,
     k: {},
     review_id: reviewID,
@@ -57,5 +70,6 @@ module.exports = {
   emitAuthenticate,
   emitConnectReview,
   emitReviewAppendMove,
-  emitHostinfo
+  emitHostinfo,
+  emitConnectNotification
 }

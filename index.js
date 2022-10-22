@@ -33,12 +33,12 @@ async function main() {
 
   emitter.emitConnectReview(socket, chatAuth, reviewID, userID);
 
-  emitter.emitReviewAppendMove(socket, 'abcdefgh', reviewID, userID);
+  // emitter.emitReviewAppendMove(socket, 'abcdefgh', reviewID, userID);
 
   emitter.emitHostinfo(socket);
 
-  let sgf = await ogsapi.downloadSGF(accessToken, reviewID, './sgf/test.sgf');
-  console.log(sgf);
+  // let sgf = await ogsapi.downloadSGF(accessToken, reviewID, './sgf/test.sgf');
+  // console.log(sgf);
 }
 
 main();

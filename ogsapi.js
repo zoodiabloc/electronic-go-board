@@ -3,6 +3,7 @@ const axios = require('axios');
 const FormData = require('form-data');
 const { io } = require("socket.io-client");
 const fs = require('fs');
+// const time = require('time');
 
 async function generateAccessToken(username, password, clientID, grantType) {
   let url = 'https://online-go.com/oauth2/token/';
@@ -13,6 +14,7 @@ async function generateAccessToken(username, password, clientID, grantType) {
   data.append('grant_type', grantType);
 
   let res = await axios.post(url, data);
+  // console.log(res);
   return res['data']['access_token']
 }
 

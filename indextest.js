@@ -3,6 +3,7 @@ require('dotenv').config();
 const ogsapi = require('./ogsapi.js');
 const listener = require('./socket-event-listener.js');
 const emitter = require('./socket-event-emitter.js');
+// const ogsapi2 = require('./ogsapi2.js');
 
 const USERNAME = process.env.USERNAME;
 const PASSWORD = process.env.PASSWORD;
@@ -11,7 +12,7 @@ const GRANT_TYPE = process.env.GRANT_TYPE;
 
 async function main() {
   let accessToken = await ogsapi.generateAccessToken(USERNAME, PASSWORD, CLIENT_ID, GRANT_TYPE);
-  
+
   let config = await ogsapi.getUIConfig(accessToken);
   let chatAuth = config['chat_auth'];
   let notificationAuth = config['notification_auth'];
@@ -20,7 +21,7 @@ async function main() {
   let jwt = config['user_jwt'];
 
   // let reviewID = await ogsapi.createDemoBoard(accessToken, 'test1', 'bplayer', 10, 'wplayer', 10, 19, 19, 'japanese', 'false');
-  let reviewID = 959865;
+  let reviewID = 960882;
 
   let socket = await ogsapi.generateOGSSocketHandler();
 
@@ -29,17 +30,25 @@ async function main() {
   listener.listenAll(socket);
 
   listener.listenReviewAppendResponse(socket, reviewID);
+
+  await new Promise(resolve => setTimeout(resolve, 1000));
   
-  emitter.emitAuthenticate(socket, chatAuth, userID, USERNAME, jwt);
+  await emitter.emitAuthenticate(socket, chatAuth, userID, USERNAME, jwt);  
 
-  emitter.emitConnectReview(socket, chatAuth, reviewID, userID);
+  await new Promise(resolve => setTimeout(resolve, 1000));
 
-  emitter.emitReviewAppendMove(socket, 'ddeeffgg', reviewID, userID);
+  await emitter.emitConnectReview(socket, chatAuth, reviewID, userID);
 
-  emitter.emitHostinfo(socket);
+  await new Promise(resolve => setTimeout(resolve, 1000));
 
-  let sgf = await ogsapi.downloadSGF(accessToken, reviewID, './sgf/test.sgf');
-  console.log(sgf);
+  await emitter.emitReviewAppendMove(socket, 'abcdefghijkkeehi', reviewID, userID);
+
+  await new Promise(resolve => setTimeout(resolve, 1000));
+
+  await emitter.emitHostinfo(socket);
+
+  // let sgf = await ogsapi.downloadSGF(accessToken, reviewID, './sgf/test.sgf');
+  // console.log(sgf);
 }
 
 main();
