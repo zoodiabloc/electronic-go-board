@@ -34,7 +34,7 @@ You should see that in both terminal 1 and terminal 2 there is a new event recei
 
 If you go to OGS to view the new demo board **https://online-go.com/demo/view/<reviewID>** or refresh the page if you're already there, you should see the board with the new state!
 
-## Current steps to make appending moves works (2022.10.17)
+### Current steps to make appending moves works (2022.10.17)
 
 1. Run `npm start` and copy the new demo board ID from the terminal.
 2. On line 23 of indextest.js, modify the value of `reviewID` to match the new demo board ID from step 1.
