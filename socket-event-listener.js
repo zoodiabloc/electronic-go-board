@@ -29,6 +29,7 @@ function listenAll(socket) {
   console.log('listening to listenAll');
 }
 
+// rename to listenReviewAppendResult later
 function listenReviewAppendResponse(socket, reviewID) {
   let eventName = `review/${reviewID}/r`;
   socket.on(eventName, (msg) => {

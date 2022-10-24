@@ -14,11 +14,33 @@ Create a .env file in the root directory containing the following variables:
 
 `npm install`
 
+## How to create virtual serial port pair and register them in the program ... in Linux
+
+I am not sure how to work with Windows, so this is only for Linux. You can create a virtual serial port pair using the command `socat -d -d pty,raw,echo=0 pty,raw,echo=0`. This returns something like this
+
+> 2022/10/22 13:00:52 socat[3281] N PTY is /dev/pts/1
+>
+> 2022/10/22 13:00:52 socat[3281] N PTY is /dev/pts/2
+>
+> 2022/10/22 13:00:52 socat[3281] N starting data transfer loop with FDs [5,5] and [7,7]
+
+This pair of virtual serial port allow you to test the sending and receiving in your application. If you send one, the other one will receive something and vice versa.
+
+The numbers might be different. In this case the first virtual serial port is **/dev/pts/1** and the second virtual serial port is **/dev/pts/2**. Copy the path of the second virtual serial port, ie in this case `dev/pts/2` to .env as a new variable called `SERIAL_PORT_PATH`.
+
+After starting the application with the command in the next section in one terminal, use the path of the first virtual serial port in this command to issue a new move to the new demo board: `echo "test" > /dev/pts/1` in a different terminal.
+
+After submitting you should see a new `review/<reviewID>/r` event being captured from the first terminal. Its **m** field should contain the current board's move string. If you see this, the program is working.
+
 ## How to run the application
 
-`npm start`
+`node indexserialogs.js`
 
 ## Project updates
+
+### Sending move strings through virtual serial port is working -ish (2022.10.23)
+
+I can use virtual serial port to send over move strings one a time, simulating a game played between two players. You need to create a pair of virtual serial ports first before running the main program.
 
 ### Append new moves is now working (2022.10.22)
 
