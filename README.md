@@ -14,6 +14,14 @@ Create a .env file in the root directory containing the following variables:
 
 `npm install`
 
+## How to combine the Arduino and the JavaScript codes
+
+Connect the 4 by 4 keypad pins to the Arduino I/O pins. Relocate the Arduino library files to the directory your Arduino installation uses to store the library files. In my case it's Linux Mint and it's under /home/username/Arduino/libraries/. You create a new folder under this directory and place all the files inside that folder. Consult the Arduino documentation to see how things work. I don't know it that well XD
+
+Load the go-board.ino sketch .ino file into the Arduino chip and start the Arduino. Start the JavaScript code using `node indexserialogs.js`. Open the new demo board in a web browser and press on the keys to see the moves being appended to the new demo board.
+
+If the keys you press and the actual moves on OGS do not align, adjust line 24 and 25 of the go-board.ino sketch under they match.
+
 ## How to create virtual serial port pair and register them in the program ... in Linux
 
 I am not sure how to work with Windows, so this is only for Linux. You can create a virtual serial port pair using the command `socat -d -d pty,raw,echo=0 pty,raw,echo=0`. This returns something like this
@@ -37,6 +45,10 @@ After submitting you should see a new `review/<reviewID>/r` event being captured
 `node indexserialogs.js`
 
 ## Project updates
+
+### Support playing on OGS with a 4 by 4 keypad (2022.10.27)
+
+I add the Arduino sketch and library codes as well as modify the main file to support playing on OGS with a 4 by 4 keypad. Modify the pin number if you decide to try it on your own Arduino board. The four library files need to be added to the library directory of your Arduino installation. When everything is ready, run `node indexserialogs.js` and start the Arduino. You can view your game if you go to your demo board on OGS. You need to refresh the web page if you want to see updated board states.
 
 ### Sending move strings through virtual serial port is working -ish (2022.10.23)
 
