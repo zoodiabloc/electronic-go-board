@@ -3,7 +3,9 @@
 const { SerialPort } = require('serialport')
 const { ReadlineParser } = require('@serialport/parser-readline');
 
-const port = new SerialPort({ path: '/dev/pts/4', baudRate: 9600, autoOpen: true })
+const port = new SerialPort({ path: '/dev/ttyACM0', baudRate: 9600, autoOpen: true })
+
+let buffer = '';
 
 port.write('main screen turn on', function(err) {
   if (err) {
@@ -20,5 +22,14 @@ port.on('error', function(err) {
 // Read data that is available but keep the stream in "paused mode"
 port.on('readable', function () {
 	let str = port.read().toString();
-  console.log('Data:', str)
+  // console.log('Data tostring:', str)
+  // console.log('Data:', port.read());
+  buffer += str;
+  if(buffer.length < 2) {
+    console.log('buffer isn\'t full yet');
+  } else {
+    console.log('buffer is full: ', buffer);
+    buffer = '';
+  }
+  // console.log('buffer: ', buffer)
 })

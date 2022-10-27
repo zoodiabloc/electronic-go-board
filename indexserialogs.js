@@ -12,6 +12,7 @@ const GRANT_TYPE = process.env.GRANT_TYPE;
 const SERIAL_PORT_PATH = process.env.SERIAL_PORT_PATH;
 
 let boardMoveString = '';
+let serialBuffer = '';
 
 async function main() {
   let accessToken = await ogsapi.generateAccessToken(USERNAME, PASSWORD, CLIENT_ID, GRANT_TYPE);
@@ -47,12 +48,26 @@ async function main() {
   });
 
   port.on('readable', async function () {
-    let newMove = port.read().toString().replace('\n', '');
-    console.log('new move:', newMove);
-    boardMoveString += newMove;
-    console.log('new board move string:', boardMoveString);
+  	let str = port.read().toString();
+    serialBuffer += str;
+    if(serialBuffer.length < 2) {
+      console.log('serialBuffer isn\'t full yet');
+    } else {
+      console.log('serialBuffer is full: ', serialBuffer);
 
-    await emitter.emitReviewAppendMove(socket, boardMoveString, reviewID, userID);
+      boardMoveString += serialBuffer;
+
+      await emitter.emitReviewAppendMove(socket, boardMoveString, reviewID, userID);
+
+      serialBuffer = '';
+    }
+
+    // let newMove = port.read().toString().replace('\n', '');
+    // console.log('new move:', newMove);
+    // boardMoveString += newMove;
+    // console.log('new board move string:', boardMoveString);
+
+    // await emitter.emitReviewAppendMove(socket, boardMoveString, reviewID, userID);
   });
 }
 

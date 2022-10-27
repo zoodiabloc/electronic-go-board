@@ -1,5 +1,6 @@
 sgf/*.sgf
 ogsapi2.js
+playground/
 
 # Logs
 logs
