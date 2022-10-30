@@ -55,10 +55,16 @@ async function main() {
     } else {
       console.log('serialBuffer is full: ', serialBuffer);
 
-      boardMoveString += serialBuffer;
+      let lastMove = boardMoveString.substring(boardMoveString.length-2, boardMoveString.length);
 
-      await emitter.emitReviewAppendMove(socket, boardMoveString, reviewID, userID);
+      if(serialBuffer != lastMove) {
+        boardMoveString += serialBuffer;
 
+        await emitter.emitReviewAppendMove(socket, boardMoveString, reviewID, userID);
+
+        // serialBuffer = '';
+      }
+      
       serialBuffer = '';
     }
 

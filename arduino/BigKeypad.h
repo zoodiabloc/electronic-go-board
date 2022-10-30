@@ -67,7 +67,7 @@ typedef struct
   byte columns;
 } KeypadSize;
 
-#define LIST_MAX 10		// Max number of keys on the active list.
+#define LIST_MAX 100		// Max number of keys on the active list.
 #define MAPSIZE 19		// MAPSIZE is the number of rows (times 24 columns)
 #define makeIntKeymap(x) ((uint16_t*)x)
 
