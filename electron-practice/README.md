@@ -1,0 +1,1 @@
+run with `npx electronmon .` to automatically rerun the app upon change

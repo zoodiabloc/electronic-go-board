@@ -1,0 +1,17 @@
+{
+  "name": "electron-practice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+	"productName": "Electron Practice",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^21.2.2",
+    "toastify-js": "^1.12.0"
+  }
+}

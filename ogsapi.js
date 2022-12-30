@@ -83,10 +83,51 @@ async function downloadSGF(accessToken, reviewID, sgfPath) {
   return sgf
 }
 
+async function getCurrentBoardStates(accessToken, reviewID) {
+  let url = `https://online-go.com/termination-api/review/${reviewID}/state`;
+  
+  let res = await axios.get(url, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`
+    }
+  });
+
+  return res['data']['board']
+
+  let currentBoardState = res['data']['board'];
+  bState = [];
+  wState = [];
+
+  let boardLabels = 'ABCDEFGHJKLMNOPQRST';
+
+  for(let iRow = 0; iRow < 19; iRow++) {
+    for(let iCol = 0; iCol < 19; iCol++) {
+      if(currentBoardState[iRow][iCol] == 1) {
+        let moveString = boardLabels[iRow] + boardLabels[iCol];
+        bState.push(moveString);
+      } else if(currentBoardState[iRow][iCol] == 2) {
+        let moveString = boardLabels[iRow] + boardLabels[iCol];
+        wState.push(moveString);
+      }
+    }
+  }
+
+  // console.log('bState: ', bState, '\n');
+  // console.log('wState: ', wState, '\n');
+
+  let states = {
+    bState,
+    wState
+  }
+
+  return states
+}
+
 module.exports = {
   generateAccessToken,
   getUIConfig,
   generateOGSSocketHandler,
   createDemoBoard,
-  downloadSGF
+  downloadSGF,
+  getCurrentBoardStates
 }

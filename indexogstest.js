@@ -20,16 +20,17 @@ async function main() {
   let userID = config['user']['id'];
   let jwt = config['user_jwt'];
 
-  // let reviewID = await ogsapi.createDemoBoard(accessToken, 'test1', 'bplayer', 10, 'wplayer', 10, 19, 19, 'japanese', 'false');
-  let reviewID = 960882;
+  let reviewID = await ogsapi.createDemoBoard(accessToken, 'test1', 'bplayer', 10, 'wplayer', 10, 19, 19, 'japanese', 'false');
+  console.log('reviewID: ', reviewID)
+  // let reviewID = 967620;
 
   let socket = await ogsapi.generateOGSSocketHandler();
 
-  listener.listenHostinfo(socket);
+  // listener.listenHostinfo(socket);
 
-  listener.listenAll(socket);
+  // listener.listenAll(socket);
 
-  listener.listenReviewAppendResponse(socket, reviewID);
+  // listener.listenReviewAppendResponse(socket, reviewID);
 
   await new Promise(resolve => setTimeout(resolve, 1000));
   
@@ -41,14 +42,21 @@ async function main() {
 
   await new Promise(resolve => setTimeout(resolve, 1000));
 
-  await emitter.emitReviewAppendMove(socket, 'abcdefghijkkeehi', reviewID, userID);
+  await emitter.emitReviewAppendMove(socket, 'AABB', reviewID, userID);
 
   await new Promise(resolve => setTimeout(resolve, 1000));
 
-  await emitter.emitHostinfo(socket);
+  // await emitter.emitHostinfo(socket);
 
   // let sgf = await ogsapi.downloadSGF(accessToken, reviewID, './sgf/test.sgf');
   // console.log(sgf);
+
+  // let states = await ogsapi.getCurrentBoardStates(accessToken, reviewID)
+  // console.log(states);
+
+  let states = await ogsapi.getCurrentBoardStates(accessToken, reviewID);
+  console.log(states);
+
 }
 
 main();

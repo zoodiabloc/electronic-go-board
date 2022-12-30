@@ -1,0 +1,69 @@
+const path = require('path');
+const { app, BrowserWindow, Menu } = require('electron');
+
+// check if the electron app is run in dev mode, ie by using npm start
+const isDev = process.env.NODE_ENV !== 'production';
+// process.platform returns the operating system name, ie darwin for Mac, win32 for Windows, and linux for Linux
+const isMac = process.platform === 'darwin';
+
+function createMainWindow() {
+	const mainWindow = new BrowserWindow({
+		title: 'Electron Practice',
+		// under dev mode, width should be larger to fit the dev tool
+		width: isDev?1200:500,
+		height: 600
+	});
+
+	if(isDev) {
+		// open the dev tool, ie ctrl + shift + i in windows
+		mainWindow.webContents.openDevTools();
+	}
+
+	mainWindow.loadFile(path.join(__dirname, './renderer/index.html'));
+}
+
+// app is ready
+app.whenReady().then(() => {
+	createMainWindow();
+
+	// build a menu from template but hasn't specified to where to apply it
+	const mainMenu = Menu.buildFromTemplate(menu2);
+	// this is how to set the menu
+	Menu.setApplicationMenu(mainMenu);
+
+	app.on('activate', () => {
+		// if there is no window when the app is activated, call the create window function again
+		if(BrowserWindow.getAllWindows().length === 0) {
+			createMainWindow();
+		}
+	})
+});
+
+// template for menu
+const menu = [
+	{
+		label: 'File',
+		submenu: [
+			{
+				label: 'QuitHa',
+				click: () => app.quit(),
+				// define the shortcut
+				accelerator: 'CmdOrCtrl+W'
+			}
+		]
+	}
+]
+
+// easier way to create a file menu
+const menu2 = [
+	{
+		role: 'fileMenu'
+	}
+]
+
+app.on('window-all-closed', () => {
+	// Mac does window closing differently than Windows and Linux because Mac keep the app icon in the taskbar even after all windows are closed
+	if(!isMac) { 
+		app.quit();
+	}
+});

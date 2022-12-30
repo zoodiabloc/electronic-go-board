@@ -19,17 +19,26 @@ port.on('error', function(err) {
   console.log('Error: ', err.message)
 })
 
-// Read data that is available but keep the stream in "paused mode"
+// // Read data that is available but keep the stream in "paused mode"
+// port.on('readable', function () {
+// 	let str = port.read().toString();
+//   // console.log('Data tostring:', str)
+//   // console.log('Data:', port.read());
+//   buffer += str;
+//   if(buffer.length < 2) {
+//     console.log('buffer isn\'t full yet');
+//   } else {
+//     console.log('buffer is full: ', buffer);
+//     buffer = '';
+//   }
+//   console.log('buffer: ', buffer)
+// })
+
 port.on('readable', function () {
 	let str = port.read().toString();
-  // console.log('Data tostring:', str)
-  // console.log('Data:', port.read());
+  
   buffer += str;
-  if(buffer.length < 2) {
-    console.log('buffer isn\'t full yet');
-  } else {
-    console.log('buffer is full: ', buffer);
-    buffer = '';
-  }
-  // console.log('buffer: ', buffer)
+
+  console.log('got new message: ', buffer)
+  buffer = ''
 })

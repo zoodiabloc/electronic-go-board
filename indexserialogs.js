@@ -52,20 +52,35 @@ async function main() {
     serialBuffer += str;
     if(serialBuffer.length < 2) {
       console.log('serialBuffer isn\'t full yet');
-    } else {
+    } else if(serialBuffer.length == 2) {
       console.log('serialBuffer is full: ', serialBuffer);
 
-      let lastMove = boardMoveString.substring(boardMoveString.length-2, boardMoveString.length);
+      // let currentStates = await ogsapi.getCurrentBoardStates(accessToken, reviewID);
+      // await new Promise(resolve => setTimeout(resolve, 1000));
 
-      if(serialBuffer != lastMove) {
-        boardMoveString += serialBuffer;
+      // let bState = currentStates.bState;
+      // let wState = currentStates.wState;
+      // console.log('bState: ', bState, '\n');
+      // console.log('wState: ', wState, '\n');
 
-        await emitter.emitReviewAppendMove(socket, boardMoveString, reviewID, userID);
+      // let lastMove = boardMoveString.length == 0 ? '' : boardMoveString.substring(boardMoveString.length-2, boardMoveString.length);
 
-        // serialBuffer = '';
-      }
+      // if(serialBuffer != lastMove) {
+      // // // console.log('boardMoveString: ', boardMoveString);
+      // // // if(serialBuffer != lastMove && bState.includes(serialBuffer) == false && wState.includes(serialBuffer) == false) {
+      //   boardMoveString += serialBuffer;
+
+      //   await emitter.emitReviewAppendMove(socket, boardMoveString, reviewID, userID);
+      //   await emitter.emitReviewAppendMove(socket, boardMoveString, reviewID, userID);
+      // //   await new Promise(resolve => setTimeout(resolve, 1000));
+
+      // // serialBuffer = '';
+      // }
       
       serialBuffer = '';
+      // let updatedStates = await ogsapi.getCurrentBoardStates(accessToken, reviewID);
+      // console.log('updatedStates: ', updatedStates);
+      // await new Promise(resolve => setTimeout(resolve, 1000));
     }
 
     // let newMove = port.read().toString().replace('\n', '');

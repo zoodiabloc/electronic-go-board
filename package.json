@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/zoodiabloc/electronic-go-board#readme",
   "dependencies": {
+    "@sabaki/go-board": "^1.4.3",
     "@serialport/parser-readline": "^10.3.0",
     "axios": "^1.1.3",
     "dotenv": "^16.0.3",
