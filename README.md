@@ -46,6 +46,10 @@ After submitting you should see a new `review/<reviewID>/r` event being captured
 
 ## Project updates
 
+### Succeeded with 9 by 9 matrix (2022.12.30)
+
+Use indexserialogssabaki2.js to communicate with the Arduino board and OGS.
+
 ### Support playing on OGS with a 4 by 4 keypad (2022.10.27)
 
 I add the Arduino sketch and library codes as well as modify the main file to support playing on OGS with a 4 by 4 keypad. Modify the pin number if you decide to try it on your own Arduino board. The four library files need to be added to the library directory of your Arduino installation. When everything is ready, run `node indexserialogs.js` and start the Arduino. You can view your game if you go to your demo board on OGS. You need to refresh the web page if you want to see updated board states.
